@@ -1,11 +1,14 @@
-require('dotenv').config()
-const express = require('express');
+require("dotenv").config();
+const bodyParser = require("body-parser");
+const express = require("express");
 const app = express();
+const port = 3001;
+const router = require("./routes.js")
 
-app.get('/', (req, res) => {
-  console.log("Rodando")
-})
+app.use('/get', router)
 
-app.listen(process.env.PORT, () => {
-  console.log("Rodando")
-})
+app.use(bodyParser.json())
+
+app.listen(port, () => {
+  console.log("Rodando na port: " + process.env.PORT);
+});
