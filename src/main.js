@@ -2,13 +2,13 @@ require("dotenv").config();
 const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
-const port = 3001;
 const router = require("./routes.js")
 
-app.use('/get', router)
 
 app.use(bodyParser.json())
+app.use('/', router);
 
-app.listen(port, () => {
+
+app.listen(process.env.PORT, () => {
   console.log("Rodando na port: " + process.env.PORT);
 });
