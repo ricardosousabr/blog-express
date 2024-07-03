@@ -6,8 +6,6 @@ const {addUser} = require('./service/addUser');
 const {deleteUser} = require('./service/deleteUser');
 const {updateUser} = require('./service/updateUser');
 
-const mysql = require('mysql2/promise');
-
 router.get('/users', async (req, res) => {
   console.log("Pegar todos os usuarios")
   const user = await getAllUsers();
@@ -16,9 +14,7 @@ router.get('/users', async (req, res) => {
 
 router.post('/users', async  (req, res) => {
   console.log("Enviar usuario")
-    const name = req.body.name;
-    const age = req.body.age;
-    const email = req.body.email;
+  const {name, age, email} = req.body;
     const result = await addUser(name, age, email)
 
     return result
@@ -42,10 +38,7 @@ router.delete('/users/:id', async (req, res) => {
 router.patch('/users/:id', async (req, res) => {
   console.log("Atualizar usuario")
     const id = req.params.id;
-    const name = req.body.name;
-    const age = req.body.age;
-    const email = req.body.email;
-
+    const {name, age, email} = req.body;
     const result = await updateUser(id, name, age, email)
     return result
 })
