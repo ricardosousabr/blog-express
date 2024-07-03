@@ -1,6 +1,6 @@
 const mysql = require('mysql2/promise');
 
-async function getAllUsers() {
+async function updateUser(id, name, age, email) {
   const connection = await mysql.createConnection({
     host:process.env.DB_HOST,
     password:process.env.DB_PASS,
@@ -8,9 +8,8 @@ async function getAllUsers() {
     database: process.env.DB_NAME
   })
 
-  const [result, fields] = await connection.execute('SELECT * FROM user');
-  console.log(result)
-  return result;
+  const result = await connection.execute(`UPDATE user SET name = ?, age = ?, email = ? WHERE id = ?`, [name, age, email, id] )
+  return result
 }
 
-module.exports = {getAllUsers}
+module.exports = {updateUser}
